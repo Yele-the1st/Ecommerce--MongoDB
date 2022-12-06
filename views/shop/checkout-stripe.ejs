@@ -1,0 +1,35 @@
+<%- include('../includes/head.ejs') %>
+  <link rel="stylesheet" href="/css/cart.css">
+</head>
+<body>
+  <%- include('../includes/navigation.ejs') %>
+  <section>
+    <ul class="cart__item-list">
+      <% products.forEach(p => { %>
+        <li class="cart__item">
+          <h1><%= p.productId.title %></h1>
+          <p>Quantity: <%= p.quantity %></p>
+        </li>
+        <% }) %> 
+    </ul>
+    <div class="centered">
+      <h2>Total: <%= totalSum %></h2>
+    </div>
+    <div class="centered">
+      <form action="/create-order" method="POST">
+        <script
+           src="//checkout.stripe.com/v2/checkout.js"
+           class="stripe-button"
+           data-key="pk_test_51M3jOkFz8zyOuLuarQH8jAjHN0YrC5b37klu5sWYv1jiIeT8lutnwOOHlsqA51JGaS55V9nXg96QwBGRgZArcn1p00BVkWahoT"
+           data-amount="<%= totalSum * 100 %>"
+           data-currency="usd"
+           data-name="Your Order"
+           data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+           data-description="All items you ordered"
+           data-locale="auto" >
+         </script>
+     </form>
+    </div>
+  </section>
+<%- include('../includes/footer.ejs') %>
+<%- include('../includes/end.ejs') %>
